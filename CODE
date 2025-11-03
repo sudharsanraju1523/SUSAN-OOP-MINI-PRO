@@ -1,0 +1,40 @@
+package miniproject;
+import java.util.*;
+
+public class VotingSystemWithGraphs {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Map<String, Integer> votes = new LinkedHashMap<>();
+        votes.put("Candidate A", 0);
+        votes.put("Candidate B", 0);
+        votes.put("Candidate C", 0);
+
+        System.out.println("=== Welcome to Voting System ===");
+        String choice;
+        do {
+            System.out.println("Enter your vote (A/B/C): ");
+            String v = sc.next().toUpperCase();
+            switch (v) {
+                case "A": votes.put("Candidate A", votes.get("Candidate A") + 1); break;
+                case "B": votes.put("Candidate B", votes.get("Candidate B") + 1); break;
+                case "C": votes.put("Candidate C", votes.get("Candidate C") + 1); break;
+                default: System.out.println("Invalid choice!"); break;
+            }
+            displayGraph(votes);
+            System.out.print("Continue voting? (y/n): ");
+            choice = sc.next();
+        } while (choice.equalsIgnoreCase("y"));
+        sc.close();
+    }
+
+    public static void displayGraph(Map<String, Integer> votes) {
+        System.out.println("\n--- Live Voting Graph ---");
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            System.out.printf("%s: ", entry.getKey());
+            for (int i = 0; i < entry.getValue(); i++) System.out.print("█");
+            System.out.println(" (" + entry.getValue() + " votes)");
+        }
+        System.out.println("---------------------------\n");
+    }
+}
